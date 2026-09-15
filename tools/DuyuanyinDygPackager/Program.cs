@@ -151,18 +151,23 @@ internal sealed class EditorForm : Form
         ScrollBars = multiline ? ScrollBars.Vertical : ScrollBars.None
     };
 
-    private static Button NewButton(string text, EventHandler click) => new()
+    private static Button NewButton(string text, EventHandler click)
     {
-        Text = text,
-        AutoSize = true,
-        AutoSizeMode = AutoSizeMode.GrowAndShrink,
-        Padding = new Padding(10, 5, 10, 5),
-        BackColor = Color.FromArgb(102, 91, 199),
-        ForeColor = Color.White,
-        FlatStyle = FlatStyle.Flat,
-        FlatAppearance = { BorderSize = 0 },
-        Cursor = Cursors.Hand
-    }.Also(button => button.Click += click);
+        var button = new Button
+        {
+            Text = text,
+            AutoSize = true,
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            Padding = new Padding(10, 5, 10, 5),
+            BackColor = Color.FromArgb(102, 91, 199),
+            ForeColor = Color.White,
+            FlatStyle = FlatStyle.Flat,
+            Cursor = Cursors.Hand
+        };
+        button.FlatAppearance.BorderSize = 0;
+        button.Click += click;
+        return button;
+    }
 
     private void NewDocument()
     {
@@ -345,14 +350,5 @@ internal sealed class EditorForm : Form
         var invalid = Path.GetInvalidFileNameChars();
         var value = string.Concat(name.Select(c => invalid.Contains(c) ? '_' : c)).Trim();
         return string.IsNullOrWhiteSpace(value) ? "未命名游戏" : value;
-    }
-}
-
-internal static class ControlExtensions
-{
-    internal static T Also<T>(this T control, Action<T> action) where T : Control
-    {
-        action(control);
-        return control;
     }
 }
