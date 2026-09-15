@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DUYUANJIN DYG v1 for AMOLED 2.16",
+  "type": "object",
+  "required": ["dyg_version", "board", "engine", "name", "size", "initial"],
+  "properties": {
+    "dyg_version": {"const": 1},
+    "board": {"const": "ESP32-S3-Touch-AMOLED-2.16"},
+    "engine": {"const": "lights-out"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 40},
+    "author": {"type": "string", "maxLength": 40},
+    "version": {"type": "string", "maxLength": 20},
+    "instructions": {"type": "string", "maxLength": 160},
+    "size": {"type": "integer", "minimum": 3, "maximum": 6},
+    "initial": {"type": "array", "minItems": 9, "maxItems": 36, "items": {"type": "boolean"}}
+  },
+  "additionalProperties": true
+}
